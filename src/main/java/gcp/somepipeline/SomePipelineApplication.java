@@ -13,7 +13,7 @@ public class SomePipelineApplication {
 		SpringApplication.run(SomePipelineApplication.class, args);
 	}
 
-	@GetMapping("/check")
+	@GetMapping("/")
 	public String check() {
 		return "It works.";
 	}
