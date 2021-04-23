@@ -1,3 +1,4 @@
 runtime: java11
 instance_class: B2
-#entrypoint: 'gradle bootRun'
+basic_scaling:
+  max_instances: 1
