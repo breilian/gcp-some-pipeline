@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v4")
+@RequestMapping("api/v5")
 public class ModelController {
 
     @Autowired
