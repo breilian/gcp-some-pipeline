@@ -1,5 +1,6 @@
 steps:
-  - name: 'gcr.io/cloud-builders/gradle'
+  - name: 'gradle:5.6.2-jdk11'
+    entrypoint: 'gradle'
     args: ['test']
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
