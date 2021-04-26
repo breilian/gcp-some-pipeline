@@ -1,12 +1,9 @@
 package gcp.somepipeline.repository;
 
 import gcp.somepipeline.entity.object.ObjectAction;
-import gcp.somepipeline.entity.object.TopObject;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+public interface ModelOARepository extends CrudRepository<ObjectAction, Long> {
 
-public interface ModelOARepository extends JpaRepository<ObjectAction, Long> {
-
-    <T> List<T> findByTopObject(TopObject to, Class<T> projectionClass);
+//    <T> List<T> findByTopObject(TopObject to, Class<T> projectionClass);
 }

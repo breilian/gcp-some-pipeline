@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +16,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class TopObject extends BaseNamedEntity {
+public class TopObject /*extends BaseNamedEntity*/ {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    String name;
 
     @OneToOne
     @JoinColumn(name = "parentObjectId")
@@ -31,15 +34,18 @@ public class TopObject extends BaseNamedEntity {
     Boolean requiresValue;
 
     public TopObject(Long id) {
-        super(id);
+//        super(id);
+        this.id = id;
     }
 
     public TopObject(String name) {
-        super(name);
+//        super(name);
+        this.name = name;
     }
 
     public TopObject(String name, Long parentObjectId) {
-        super(name);
+//        super(name);
+        this.name = name;
 
         if (Objects.nonNull(parentObjectId)) {
             this.parentObject = new TopObject(parentObjectId);

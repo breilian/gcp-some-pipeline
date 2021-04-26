@@ -8,21 +8,31 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ParameterForm extends BaseNamedEntity {
+public class ParameterForm /*extends BaseNamedEntity*/ {
 
-    public ParameterForm(Long id) {
-        super(id);
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-    public ParameterForm(String name) {
-        super(name);
-    }
+    String name;
+
+
+//    public ParameterForm(Long id) {
+//        super(id);
+//    }
+//
+//    public ParameterForm(String name) {
+//        super(name);
+//    }
 
     @Override
     public String toString() {

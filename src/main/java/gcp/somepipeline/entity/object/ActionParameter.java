@@ -5,10 +5,7 @@ import gcp.somepipeline.entity.BaseNamedEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
@@ -16,7 +13,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ActionParameter extends BaseNamedEntity {
+public class ActionParameter /*extends BaseNamedEntity*/ {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    String name;
 
     Boolean isOptional;
 
@@ -33,27 +36,29 @@ public class ActionParameter extends BaseNamedEntity {
     @JoinColumn(name = "parameterFormId")
     ParameterForm parameterForm;
 
-    public ActionParameter(Long id) {
-        super(id);
-    }
+//    public ActionParameter(Long id) {
+//        super(id);
+//    }
 
     @Builder
     public ActionParameter(String name, Boolean isOptional, Long objectActionId, Long parameterTypeId, Long parameterFormId) {
-        super(name);
+//        super(name);
+        this.name = name;
+
 
         this.isOptional = isOptional;
 
-        if (Objects.nonNull(objectActionId)) {
-            this.objectAction = new ObjectAction(objectActionId);
-        }
+//        if (Objects.nonNull(objectActionId)) {
+//            this.objectAction = new ObjectAction(objectActionId);
+//        }
 
-        if (Objects.nonNull(parameterTypeId)) {
-            this.parameterType = new ParameterType(parameterTypeId);
-        }
-
-        if (Objects.nonNull(parameterFormId)) {
-            this.parameterForm = new ParameterForm(parameterFormId);
-        }
+//        if (Objects.nonNull(parameterTypeId)) {
+//            this.parameterType = new ParameterType(parameterTypeId);
+//        }
+//
+//        if (Objects.nonNull(parameterFormId)) {
+//            this.parameterForm = new ParameterForm(parameterFormId);
+//        }
     }
 
     @Override

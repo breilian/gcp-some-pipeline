@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +17,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ObjectAction extends BaseNamedEntity {
+public class ObjectAction /*extends BaseNamedEntity*/ {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    String name;
 
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "topObjectId")
@@ -30,17 +33,17 @@ public class ObjectAction extends BaseNamedEntity {
     @OneToMany(mappedBy = "objectAction", orphanRemoval=true)
     List<ActionParameter> parameters;
 
-    public ObjectAction(Long id) {
-        super(id);
-    }
-
-    public ObjectAction(String name, Long topObjectId) {
-        super(name);
-
-        if ( Objects.nonNull(topObjectId)) {
-            this.topObject = new TopObject(topObjectId);
-        }
-    }
+//    public ObjectAction(Long id) {
+//        super(id);
+//    }
+//
+//    public ObjectAction(String name, Long topObjectId) {
+//        super(name);
+//
+//        if ( Objects.nonNull(topObjectId)) {
+//            this.topObject = new TopObject(topObjectId);
+//        }
+//    }
 
     @Override
     public String toString() {
