@@ -1,6 +1,5 @@
-package gcp.somepipeline.entity.object;
+package gcp.somepipeline.entity;
 
-import gcp.somepipeline.entity.BaseNamedEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,21 +16,13 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ParameterType /*extends BaseNamedEntity*/ {
+public class ParameterType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
-
-//    public ParameterType(Long id) {
-//        super(id);
-//    }
-//
-//    public ParameterType(String name) {
-//        super(name);
-//    }
 
     @Override
     public String toString() {

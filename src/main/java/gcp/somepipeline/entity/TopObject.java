@@ -1,6 +1,5 @@
-package gcp.somepipeline.entity.object;
+package gcp.somepipeline.entity;
 
-import gcp.somepipeline.entity.BaseNamedEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class TopObject /*extends BaseNamedEntity*/ {
+public class TopObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,17 +33,14 @@ public class TopObject /*extends BaseNamedEntity*/ {
     Boolean requiresValue;
 
     public TopObject(Long id) {
-//        super(id);
         this.id = id;
     }
 
     public TopObject(String name) {
-//        super(name);
         this.name = name;
     }
 
     public TopObject(String name, Long parentObjectId) {
-//        super(name);
         this.name = name;
 
         if (Objects.nonNull(parentObjectId)) {

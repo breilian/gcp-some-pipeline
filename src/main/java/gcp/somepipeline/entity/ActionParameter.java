@@ -1,19 +1,17 @@
-package gcp.somepipeline.entity.object;
+package gcp.somepipeline.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import gcp.somepipeline.entity.BaseNamedEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ActionParameter /*extends BaseNamedEntity*/ {
+public class ActionParameter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,29 +34,10 @@ public class ActionParameter /*extends BaseNamedEntity*/ {
     @JoinColumn(name = "parameterFormId")
     ParameterForm parameterForm;
 
-//    public ActionParameter(Long id) {
-//        super(id);
-//    }
-
     @Builder
-    public ActionParameter(String name, Boolean isOptional, Long objectActionId, Long parameterTypeId, Long parameterFormId) {
-//        super(name);
+    public ActionParameter(String name, Boolean isOptional) {
         this.name = name;
-
-
         this.isOptional = isOptional;
-
-//        if (Objects.nonNull(objectActionId)) {
-//            this.objectAction = new ObjectAction(objectActionId);
-//        }
-
-//        if (Objects.nonNull(parameterTypeId)) {
-//            this.parameterType = new ParameterType(parameterTypeId);
-//        }
-//
-//        if (Objects.nonNull(parameterFormId)) {
-//            this.parameterForm = new ParameterForm(parameterFormId);
-//        }
     }
 
     @Override
