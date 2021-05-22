@@ -1,8 +1,15 @@
 steps:
   - name: 'gradle:5.6.2-jdk11'
-    entrypoint: 'gradle'
-    args: ['test','sonarqube','-Dsonar.projectKey=sonar-gcp-some-pipeline','-Dsonar.host.url=https://9000-5601855a-a0cf-461c-acd5-0e3183665e2e.cs-europe-west4-szqw.cloudshell.dev','-Dsonar.login=06a59fffed6f2508555237a2cde139bed24c4434']
+    entrypoint: 'bash'
+    args: [ '-c','test','sonarqube','-Dsonar.host.url=https://sonarcloud.io','-Dsonar.login=$$SONAR_TOKEN' ]
+    secretEnv: ['SONAR_TOKEN']
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
-    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+    args: [ '-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy' ]
+
 timeout: '1600s'
+
+availableSecrets:
+  secretManager:
+    - versionName: 'projects/$PROJECT_ID/secrets/SONAR_TOKEN/versions/1'
+      env: 'SONAR_TOKEN'
