@@ -1,11 +1,28 @@
 steps:
+
+  - name: 'gcr.io/$PROJECT_ID/restore_cache'
+    id: 'restore_cache'
+    args: [ '-b=gs://build-gradle-cache/','-k=gradle-$(checksum build.gradle)' ]
+
   - name: 'gradle:5.6.2-jdk11'
+    id: 'build'
     entrypoint: 'bash'
-    args: [ '-c','gradle','test','sonarqube','-Dsonar.host.url=https://sonarcloud.io','-Dsonar.login=$$SONAR_TOKEN','-Dsonar.organization=sqgate' ]
-    secretEnv: ['SONAR_TOKEN']
+    args: [ '-c','./gradlew','test','sonarqube','-Dsonar.host.url=https://sonarcloud.io','-Dsonar.login=$$SONAR_TOKEN','-Dsonar.organization=sqgate' ]
+    secretEnv: [ 'SONAR_TOKEN' ]
+    waitFor: [ 'restore_cache' ]
+    env: [ 'GRADLE_USER_HOME=/workspace/.gradle' ]
+
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args: [ '-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy' ]
+
+  - name: 'gcr.io/$PROJECT_ID/save_cache'
+    args:
+      - '-b=gs://build-gradle-cache/'
+      - '-k=gradle-$(checksum build.gradle)'
+      - '--path=.gradle/wrapper'
+      - '--path=.gradle/caches'
+    waitFor: [ 'build' ]
 
 timeout: '1600s'
 
